@@ -51,6 +51,8 @@ var startContainer = document.querySelector('.start-container')
 
 var questionContainer = document.querySelector('.question-container')
 
+var endContainer = document.querySelector('.end-quiz-container')
+
 var score = 0
 
 var time = 100
@@ -90,14 +92,49 @@ function showQuestionOne() {
                 console.log('incorrect');
             }
 
-            showQuestionTwo()
+            // showQuestionTwo()
+            endQuiz()
         })
     }
 }
 
 function showQuestionTwo() {
     questionContainer.textContent = ""
-    
+
+}
+
+function endQuiz() {
+    questionContainer.classList.add('hidden')
+
+    let input = document.createElement('input')
+    input.setAttribute('placeholder', 'Name')
+
+    let submitBtn = document.createElement('button')
+    submitBtn.textContent = 'Submit'
+
+    submitBtn.addEventListener('click', function() {
+        let name = input.value
+
+        let user = {
+            username: name,
+            highscore: score
+        }
+
+        let storage = JSON.parse(localStorage.getItem('quizHighscore'))
+
+        if(storage === null) {
+            storage = []
+        }
+
+        storage.push(user)
+
+        localStorage.setItem('quizHighscore', JSON.stringify(storage))
+
+        window.location.href = 'highscore.html'
+
+    })
+
+    endContainer.append(input, submitBtn)
 }
 
 
