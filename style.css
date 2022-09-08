@@ -6,3 +6,7 @@ header {
     background-color: #13293d;
     color: #fff;
   }
+
+  .hidden {
+    display: none;
+  }
