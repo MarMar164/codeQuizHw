@@ -15,29 +15,24 @@ const questions = [
     {
         id: 2,
         q: "How many realities did Dr.Strange go throught in Infinity War",
-        a: [{ text: " 14,000,605", isCorrect: true },
-        { text: "50,000,000", isCorrect: false },
-        { text: "50", isCorrect: false },
-        { text: "1,000,000,000", isCorrect: false }
-        ]
+        a: [" 14,000,605", "50,000,000", "50",
+            "1,000,000,000"
+        ],
+        c:" 14,000,605"
     },
     {
         id: 3,
         q: "What is the name of batman's son",
-        a: [{ text: "Jason Todd", isCorrect: false },
-        { text: "Robin", isCorrect: false },
-        { text: "Dick Grayson", isCorrect: false },
-        { text: "Damian Wayne", isCorrect: true }
-        ]
+        a: ["Jason Todd", "Robin", "Dick Grayson", "Damian Wayne"
+        ],
+        c:"Damian Wayne"
     },
     {
         id: 4,
         q: "Who is loki's brother",
-        a: [{ text: "Satan", isCorrect: false },
-        { text: "Iron Man", isCorrect: true },
-        { text: "Dr.Strange", isCorrect: false },
-        { text: "Thor", isCorrect: false }
-        ]
+        a: ["Satan","Iron Man","Dr.Strange","Thor"
+        ],
+        c:"Thor"
     }
 ]
 
@@ -166,7 +161,7 @@ function showQuestionThree() {
         answerBtn.addEventListener('click', function (event) {
             let clicked = event.target.textContent
 
-            if (clicked === questions[1].c) {
+            if (clicked === questions[2].c) {
                 score += 20
                 console.log('correct');
             } else {
@@ -176,6 +171,72 @@ function showQuestionThree() {
 
             questionIndex++
             showQuestionFour()
+        })
+    }
+}
+
+function showQuestionFour() {
+    questionContainer.textContent = ""
+
+    let question = document.createElement('h1')
+    question.textContent = questions[3].q
+    questionContainer.append(question)
+
+    let answerContainer = document.createElement('div')
+    questionContainer.append(answerContainer)
+
+    for (let index = 0; index < questions[3].a.length; index++) {
+        let answerBtn = document.createElement('button')
+        answerBtn.textContent = questions[3].a[index]
+        answerContainer.append(answerBtn)
+
+        // checking if clicked button is the correct answer
+        answerBtn.addEventListener('click', function (event) {
+            let clicked = event.target.textContent
+
+            if (clicked === questions[3].c) {
+                score += 20
+                console.log('correct');
+            } else {
+                time -= 20
+                console.log('incorrect');
+            }
+
+            questionIndex++
+            showQuestionFive()
+        })
+    }
+}
+
+function showQuestionFive() {
+    questionContainer.textContent = ""
+
+    let question = document.createElement('h1')
+    question.textContent = questions[4].q
+    questionContainer.append(question)
+
+    let answerContainer = document.createElement('div')
+    questionContainer.append(answerContainer)
+
+    for (let index = 0; index < questions[4].a.length; index++) {
+        let answerBtn = document.createElement('button')
+        answerBtn.textContent = questions[4].a[index]
+        answerContainer.append(answerBtn)
+
+        // checking if clicked button is the correct answer
+        answerBtn.addEventListener('click', function (event) {
+            let clicked = event.target.textContent
+
+            if (clicked === questions[4].c) {
+                score += 20
+                console.log('correct');
+            } else {
+                time -= 20
+                console.log('incorrect');
+            }
+
+            questionIndex++
+            endQuiz()
         })
     }
 }
