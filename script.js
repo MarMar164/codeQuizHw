@@ -9,11 +9,8 @@ const questions = [
     {
         id: 1,
         q: "In Batman:Knightfall who broke the bat",
-        a: [{ text: "The Joker", isCorrect: false },
-        { text: "The Redhood", isCorrect: false },
-        { text: "Bane", isCorrect: true },
-        { text: "Deathstroke", isCorrect: false }
-        ]
+        a: ["The Joker", "The Redhood", "Bane", "Deathstroke"],
+        c: "Bane"
     },
     {
         id: 2,
@@ -53,6 +50,10 @@ var questionContainer = document.querySelector('.question-container')
 
 var endContainer = document.querySelector('.end-quiz-container')
 
+var timeContainer = document.querySelector('.time-container')
+
+var questionIndex = 0
+
 var score = 0
 
 var time = 100
@@ -62,7 +63,22 @@ startBtn.addEventListener('click', function () {
     // adding hidden class to container so button display is none
     startContainer.classList.add('hidden')
     showQuestionOne()
+    startTimer()
 })
+
+function startTimer() {
+    timeContainer.textContent = time
+    let timer = setInterval(() => {
+        time--
+        if (time === 0 || questionIndex === questions.length) {
+            clearInterval(timer)
+            endQuiz()
+        }
+        timeContainer.textContent = time
+
+
+    }, 1000);
+}
 
 
 function showQuestionOne() {
@@ -92,8 +108,8 @@ function showQuestionOne() {
                 console.log('incorrect');
             }
 
-            // showQuestionTwo()
-            endQuiz()
+            questionIndex++
+            showQuestionTwo()
         })
     }
 }
@@ -101,6 +117,67 @@ function showQuestionOne() {
 function showQuestionTwo() {
     questionContainer.textContent = ""
 
+    let question = document.createElement('h1')
+    question.textContent = questions[1].q
+    questionContainer.append(question)
+
+    let answerContainer = document.createElement('div')
+    questionContainer.append(answerContainer)
+
+    for (let index = 0; index < questions[1].a.length; index++) {
+        let answerBtn = document.createElement('button')
+        answerBtn.textContent = questions[1].a[index]
+        answerContainer.append(answerBtn)
+
+        // checking if clicked button is the correct answer
+        answerBtn.addEventListener('click', function (event) {
+            let clicked = event.target.textContent
+
+            if (clicked === questions[1].c) {
+                score += 20
+                console.log('correct');
+            } else {
+                time -= 20
+                console.log('incorrect');
+            }
+
+            questionIndex++
+            showQuestionThree()
+        })
+    }
+}
+
+function showQuestionThree() {
+    questionContainer.textContent = ""
+
+    let question = document.createElement('h1')
+    question.textContent = questions[2].q
+    questionContainer.append(question)
+
+    let answerContainer = document.createElement('div')
+    questionContainer.append(answerContainer)
+
+    for (let index = 0; index < questions[2].a.length; index++) {
+        let answerBtn = document.createElement('button')
+        answerBtn.textContent = questions[2].a[index]
+        answerContainer.append(answerBtn)
+
+        // checking if clicked button is the correct answer
+        answerBtn.addEventListener('click', function (event) {
+            let clicked = event.target.textContent
+
+            if (clicked === questions[1].c) {
+                score += 20
+                console.log('correct');
+            } else {
+                time -= 20
+                console.log('incorrect');
+            }
+
+            questionIndex++
+            showQuestionFour()
+        })
+    }
 }
 
 function endQuiz() {
@@ -112,7 +189,7 @@ function endQuiz() {
     let submitBtn = document.createElement('button')
     submitBtn.textContent = 'Submit'
 
-    submitBtn.addEventListener('click', function() {
+    submitBtn.addEventListener('click', function () {
         let name = input.value
 
         let user = {
@@ -122,7 +199,7 @@ function endQuiz() {
 
         let storage = JSON.parse(localStorage.getItem('quizHighscore'))
 
-        if(storage === null) {
+        if (storage === null) {
             storage = []
         }
 
