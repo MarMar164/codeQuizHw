@@ -65,7 +65,7 @@ function startTimer() {
     timeContainer.textContent = time
     let timer = setInterval(() => {
         time--
-        if (time === 0 || questionIndex === questions.length) {
+        if (time === 0 || questionIndex === questions.length -1) {
             clearInterval(timer)
             endQuiz()
         }
@@ -202,7 +202,7 @@ function showQuestionFour() {
                 console.log('incorrect');
             }
 
-            questionIndex++
+            
             showQuestionFive()
         })
     }
@@ -230,15 +230,18 @@ function showQuestionFive() {
             if (clicked === questions[4].c) {
                 score += 20
                 console.log('correct');
-            } else {
+            }else {
                 time -= 20
                 console.log('incorrect');
             }
 
+
             questionIndex++
-            endQuiz()
+           
+           
+            
         })
-    }
+    } 
 }
 
 function endQuiz() {

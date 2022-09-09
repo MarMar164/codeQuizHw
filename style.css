@@ -10,3 +10,7 @@ header {
   .hidden {
     display: none;
   }
+
+  .start-container{
+    display: inline-block;
+  }
